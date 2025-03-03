@@ -1,0 +1,10 @@
+13:49:09 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-size  SeniorProject.elf 
+   text	   data	    bss	    dec	    hex	filename
+  14360	     40	   1736	  16136	   3f08	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+
+13:49:10 Build Finished. 0 errors, 0 warnings. (took 248ms)
+
