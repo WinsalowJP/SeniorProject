@@ -1,0 +1,6 @@
+connections/org.eclipse.remote.serial.core.connectionType/Senior+Project/serial.baudRate=11
+connections/org.eclipse.remote.serial.core.connectionType/Senior+Project/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/Senior+Project/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/Senior+Project/serial.portName=COM7
+connections/org.eclipse.remote.serial.core.connectionType/Senior+Project/serial.stopBits=0
+eclipse.preferences.version=1

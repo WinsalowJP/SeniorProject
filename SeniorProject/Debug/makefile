@@ -62,7 +62,7 @@ main-build: SeniorProject.elf secondary-outputs
 
 # Tool invocations
 SeniorProject.elf SeniorProject.map: $(OBJS) $(USER_OBJS) C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
