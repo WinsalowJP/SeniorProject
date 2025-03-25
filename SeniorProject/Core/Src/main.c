@@ -69,9 +69,15 @@ static void MX_ADC1_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
-
+//TEMP VALUES
 #define TMP117_ADDR      (0x48 << 1)   // Change if your sensor address is different
 #define TMP117_TEMP_REG  0x00          // Temperature register address
+//GSR VALUES
+#define ADC_RESOLUTION 4095.0f   // 12-bit ADC: 2^12 - 1 = 4095
+#define ADC_VREF       5.0f      // Reference voltage in volts
+#define V_IN             5.0f        // Supply voltage (5V)
+#define R_FIXED          8600.0f    // Fixed resistor in ohms (10 kΩ)
+#define SERIAL_CALIBRATION   3140
 
 /**
   * @brief  Reads the temperature from the TMP117 sensor.
@@ -122,6 +128,38 @@ uint32_t read_adc_value(void)
 
     return adcValue;
 }
+
+float read_adc_voltage(void)
+{
+    uint32_t adc_raw = read_adc_value();
+    // Convert raw ADC value to voltage:
+    // voltage = (adc_raw / ADC_RESOLUTION) * ADC_VREF
+    float voltage = ((float)adc_raw / ADC_RESOLUTION) * ADC_VREF;
+    return voltage;
+}
+
+uint32_t read_adc_value_avg(uint8_t numSamples)
+{
+    uint32_t sum = 0;
+    for (uint8_t i = 0; i < numSamples; i++)
+    {
+        sum += read_adc_value();
+        HAL_Delay(5);
+    }
+    return (sum / numSamples);
+}
+
+float calculate_human_resistance(uint32_t adcReading, uint32_t calibrationReading)
+{
+    if (calibrationReading <= adcReading) {
+        // Avoid division by zero or negative values
+        return 0.0f;
+    }
+    float numerator = (4096.0f + 2.0f * (float)adcReading) * 10000.0f;
+    float resistance = numerator / ((float)calibrationReading - (float)adcReading);
+    return resistance;
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -191,6 +229,38 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	    float tempC = read_temperature();
+	    if (tempC > -100.0f)  // simple check for valid reading
+	    {
+	       float tempF = tempC * 9.0f / 5.0f + 32.0f;
+	       printf("\033[2J\033[H");
+	       printf("Temperature: %.3f °C / %.3f °F\r\n", tempC, tempF);
+	    }
+
+	    // Read and average ADC value for GSR sensor (using 10 samples)
+	    uint32_t adcRaw = read_adc_value_avg(10);
+	    float adcVoltage = ((float)adcRaw / ADC_RESOLUTION) * ADC_VREF;
+
+	    float humanResistance = calculate_human_resistance(adcRaw, SERIAL_CALIBRATION);
+
+	    // Print the ADC value, voltage, and calculated human resistance with appropriate units
+	    printf("ADC Value: %lu\r\n", adcRaw);
+	    printf("ADC Voltage: %.3f V\r\n", adcVoltage);
+
+	    if (humanResistance >= 1000000.0f)
+	    {
+	        printf("Human Resistance: %.3f MΩ\r\n", humanResistance / 1000000.0f);
+	    }
+	    else if (humanResistance >= 1000.0f)
+	    {
+	        printf("Human Resistance: %.1f kΩ\r\n", humanResistance / 1000.0f);
+	    }
+	    else
+	    {
+	        printf("Human Resistance: %.1f ohms\r\n", humanResistance);
+	    }
+
+	    HAL_Delay(1000); // Delay 1 second between readings
   }
   /* USER CODE END 3 */
 }
@@ -285,7 +355,7 @@ static void MX_ADC1_Init(void)
   /** Common config
   */
   hadc1.Instance = ADC1;
-  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;

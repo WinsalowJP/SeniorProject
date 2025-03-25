@@ -395,3 +395,290 @@ arm-none-eabi-size  SeniorProject.elf
   36652	    496	   2408	  39556	   9a84	SeniorProject.elf
 Finished building: default.size.stdout
  
+18:53:36 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  36884	    496	   2408	  39788	   9b6c	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+14:35:14 **** Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/i2c.d" -MT"Core/i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/i2c.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  38772	    496	   2408	  41676	   a2cc	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+14:36:11 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  38764	    496	   2408	  41668	   a2c4	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:15:14 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:211:16: warning: passing argument 1 of 'printf' from incompatible pointer type [-Wincompatible-pointer-types]
+  211 |         printf(read_adc_value);
+      |                ^~~~~~~~~~~~~~
+      |                |
+      |                uint32_t (*)(void) {aka long unsigned int (*)(void)}
+In file included from ../Core/Inc/main.h:32,
+                 from ../Core/Src/main.c:20:
+C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:206:17: note: expected 'const char * restrict' but argument is of type 'uint32_t (*)(void)' {aka 'long unsigned int (*)(void)'}
+  206 | int     printf (const char *__restrict, ...)
+      |                 ^
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  38780	    496	   2408	  41684	   a2d4	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:16:04 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:211:16: warning: passing argument 1 of 'printf' makes pointer from integer without a cast [-Wint-conversion]
+  211 |         printf(read_adc_value());
+      |                ^~~~~~~~~~~~~~~~
+      |                |
+      |                uint32_t {aka long unsigned int}
+In file included from ../Core/Inc/main.h:32,
+                 from ../Core/Src/main.c:20:
+C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:206:17: note: expected 'const char * restrict' but argument is of type 'uint32_t' {aka 'long unsigned int'}
+  206 | int     printf (const char *__restrict, ...)
+      |                 ^
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  38780	    496	   2408	  41684	   a2d4	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:16:54 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:212:9: error: expected ',' or ';' before 'printf'
+  212 |         printf(adc);
+      |         ^~~~~~
+../Core/Src/main.c:211:15: warning: unused variable 'adc' [-Wunused-variable]
+  211 |         float adc = read_adc_value()
+      |               ^~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+15:17:10 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:212:16: error: incompatible type for argument 1 of 'printf'
+  212 |         printf(adc);
+      |                ^~~
+      |                |
+      |                float
+In file included from ../Core/Inc/main.h:32,
+                 from ../Core/Src/main.c:20:
+C:\ST\STM32CubeIDE_1.18.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/include/stdio.h:206:17: note: expected 'const char * restrict' but argument is of type 'float'
+  206 | int     printf (const char *__restrict, ...)
+      |                 ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+15:18:22 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  38812	    496	   2408	  41716	   a2f4	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:21:08 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  38788	    496	   2408	  41692	   a2dc	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:26:37 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:232:51: error: 'V_IN' undeclared (first use in this function)
+  232 |             if (adcVoltage > 0.0f && adcVoltage < V_IN)
+      |                                                   ^~~~
+../Core/Src/main.c:232:51: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:234:46: error: 'R_FIXED' undeclared (first use in this function)
+  234 |               float r_sensor = (adcVoltage * R_FIXED) / (V_IN - adcVoltage);
+      |                                              ^~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+15:27:32 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  39076	    496	   2408	  41980	   a3fc	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:31:34 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:230:32: warning: implicit declaration of function 'adc_to_voltage'; did you mean 'read_adc_voltage'? [-Wimplicit-function-declaration]
+  230 |             float adcVoltage = adc_to_voltage(adcRaw);
+      |                                ^~~~~~~~~~~~~~
+      |                                read_adc_voltage
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.18.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: ./Core/Src/main.o: in function `main':
+C:/Users/School/Documents/SeniorProject/SeniorProject/Debug/../Core/Src/main.c:230:(.text.main+0xea): undefined reference to `adc_to_voltage'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:66: SeniorProject.elf] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+15:31:55 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  39252	    496	   2408	  42156	   a4ac	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 
+15:36:42 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:243:72: error: 'SERIAL_CALIBRATION' undeclared (first use in this function)
+  243 |             float humanResistance = calculate_human_resistance(adcRaw, SERIAL_CALIBRATION);
+      |                                                                        ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:243:72: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:340:13: error: invalid storage class for function 'MX_ADC1_Init'
+  340 | static void MX_ADC1_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:398:13: error: invalid storage class for function 'MX_I2C3_Init'
+  398 | static void MX_I2C3_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:446:13: error: invalid storage class for function 'MX_LPUART1_UART_Init'
+  446 | static void MX_LPUART1_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:494:13: error: invalid storage class for function 'MX_GPIO_Init'
+  494 | static void MX_GPIO_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:536:1: error: expected declaration or statement at end of input
+  536 | }
+      | ^
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:58:13: warning: 'MX_GPIO_Init' used but never defined
+   58 | static void MX_GPIO_Init(void);
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:59:13: warning: 'MX_I2C3_Init' used but never defined
+   59 | static void MX_I2C3_Init(void);
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:60:13: warning: 'MX_LPUART1_UART_Init' used but never defined
+   60 | static void MX_LPUART1_UART_Init(void);
+      |             ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:61:13: warning: 'MX_ADC1_Init' used but never defined
+   61 | static void MX_ADC1_Init(void);
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:527:6: warning: 'Error_Handler' defined but not used [-Wunused-function]
+  527 | void Error_Handler(void)
+      |      ^~~~~~~~~~~~~
+../Core/Src/main.c:494:13: warning: 'MX_GPIO_Init' defined but not used [-Wunused-function]
+  494 | static void MX_GPIO_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:446:13: warning: 'MX_LPUART1_UART_Init' defined but not used [-Wunused-function]
+  446 | static void MX_LPUART1_UART_Init(void)
+      |             ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:398:13: warning: 'MX_I2C3_Init' defined but not used [-Wunused-function]
+  398 | static void MX_I2C3_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:340:13: warning: 'MX_ADC1_Init' defined but not used [-Wunused-function]
+  340 | static void MX_ADC1_Init(void)
+      |             ^~~~~~~~~~~~
+../Core/Src/main.c:316:6: warning: 'PeriphCommonClock_Config' defined but not used [-Wunused-function]
+  316 | void PeriphCommonClock_Config(void)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:270:6: warning: 'SystemClock_Config' defined but not used [-Wunused-function]
+  270 | void SystemClock_Config(void)
+      |      ^~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+15:38:37 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:243:72: error: 'SERIAL_CALIBRATION' undeclared (first use in this function)
+  243 |             float humanResistance = calculate_human_resistance(adcRaw, SERIAL_CALIBRATION);
+      |                                                                        ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:243:72: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+15:39:09 **** Incremental Build of configuration Debug for project SeniorProject ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_NUCLEO_64 -DUSE_HAL_DRIVER -DSTM32WB55xx -c -I../Core/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc -I../Drivers/STM32WBxx_HAL_Driver/Inc/Legacy -I../Drivers/BSP/P-NUCLEO-WB55.Nucleo -I../Drivers/CMSIS/Device/ST/STM32WBxx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "SeniorProject.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\School\Documents\SeniorProject\SeniorProject\STM32WB55RGVX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SeniorProject.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SeniorProject.elf
+ 
+arm-none-eabi-size  SeniorProject.elf 
+arm-none-eabi-objdump -h -S SeniorProject.elf  > "SeniorProject.list"
+   text	   data	    bss	    dec	    hex	filename
+  39188	    496	   2408	  42092	   a46c	SeniorProject.elf
+Finished building: default.size.stdout
+ 
+Finished building: SeniorProject.list
+ 

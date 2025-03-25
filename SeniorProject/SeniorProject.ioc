@@ -1,10 +1,12 @@
 #MicroXplorer Configuration settings - do not modify
 ADC1.Channel-3\#ChannelRegularConversion=ADC_CHANNEL_5
+ADC1.ClockPrescaler=ADC_CLOCK_ASYNC_DIV4
 ADC1.CommonPathInternal=null|null|null|null
 ADC1.ContinuousConvMode=ENABLE
-ADC1.IPParameters=Rank-3\#ChannelRegularConversion,master,Channel-3\#ChannelRegularConversion,SamplingTime-3\#ChannelRegularConversion,OffsetNumber-3\#ChannelRegularConversion,NbrOfConversionFlag,ContinuousConvMode,CommonPathInternal
+ADC1.IPParameters=Rank-3\#ChannelRegularConversion,master,Channel-3\#ChannelRegularConversion,SamplingTime-3\#ChannelRegularConversion,OffsetNumber-3\#ChannelRegularConversion,NbrOfConversionFlag,ContinuousConvMode,OversamplingMode,ClockPrescaler,CommonPathInternal
 ADC1.NbrOfConversionFlag=1
 ADC1.OffsetNumber-3\#ChannelRegularConversion=ADC_OFFSET_NONE
+ADC1.OversamplingMode=DISABLE
 ADC1.Rank-3\#ChannelRegularConversion=1
 ADC1.SamplingTime-3\#ChannelRegularConversion=ADC_SAMPLETIME_2CYCLES_5
 ADC1.master=1
@@ -191,7 +193,7 @@ ProjectManager.FreePins=false
 ProjectManager.HalAssertFull=false
 ProjectManager.HeapSize=0x200
 ProjectManager.KeepUserCode=true
-ProjectManager.LastFirmware=true
+ProjectManager.LastFirmware=false
 ProjectManager.LibraryCopy=1
 ProjectManager.MainLocation=Core/Src
 ProjectManager.NoMain=false

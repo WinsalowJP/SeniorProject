@@ -24,6 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Core \
 Drivers/BSP/P-NUCLEO-WB55.Nucleo \
 Drivers/STM32WBxx_HAL_Driver/Src \
 

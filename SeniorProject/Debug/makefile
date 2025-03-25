@@ -13,6 +13,7 @@ RM := rm -rf
 -include Drivers/BSP/P-NUCLEO-WB55.Nucleo/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Core/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
