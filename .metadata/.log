@@ -430,3 +430,18 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2025-03-25 15:39:17.718
 !MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
+!SESSION 2025-04-05 15:06:58.184 -----------------------------------------------
+eclipse.buildId=Version 1.18.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-05 15:07:05.921
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-05 15:07:05.923
+!MESSAGE Log4j2 initialized with config file C:\Users\School\Documents\SeniorProject\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-05 15:07:11.121
+!MESSAGE Started RMI Server, listening on port 41337
