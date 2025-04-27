@@ -1,0 +1,90 @@
+#include "imu.h"
+#include "stm32wbxx_hal_i2c.h"
+// bring in the I2C1 handle defined elsewhere
+extern I2C_HandleTypeDef hi2c1;
+
+static void _delay_ms(uint32_t ms) { HAL_Delay(ms); }
+
+
+
+#define BNO055_ADDR       (0x28 << 1)
+
+// Register offsets
+#define BNO055_OPR_MODE   0x3D
+#define BNO055_PWR_MODE   0x3E
+#define BNO055_CALIB_STAT 0x35
+#define BNO055_EULER_H    0x1A
+
+// Modes
+#define OPERATION_MODE_CONFIG 0x00
+#define OPERATION_MODE_NDOF   0x0C
+#define POWER_MODE_NORMAL     0x00
+
+
+
+
+int BNO055_Init(void)
+{
+
+}
+
+int BNO055_SetModeSequence(uint8_t mode)
+{
+    HAL_StatusTypeDef res;
+    uint8_t value;
+
+    // 1) Delay 100 ms
+    HAL_Delay(100);
+
+    // 2) Write 0x00 to PWR_MODE (power on / switch to normal)
+    value = 0x00;
+    res = HAL_I2C_Mem_Write(&hi2c1, BNO055_ADDR, BNO055_PWR_MODE, I2C_MEMADD_SIZE_8BIT, &value, 1, HAL_MAX_DELAY);
+    if (res != HAL_OK) return -1;
+
+    // 3) Delay 100 ms
+    HAL_Delay(100);
+
+    // 4) Write 0x00 to OPR_MODE (switch into CONFIG mode)
+    value = 0x00;
+    res = HAL_I2C_Mem_Write(&hi2c1,BNO055_ADDR,BNO055_OPR_MODE,I2C_MEMADD_SIZE_8BIT,&value,1,HAL_MAX_DELAY);
+    if (res != HAL_OK) return -1;
+
+    // 5) Delay 100 ms
+    HAL_Delay(100);
+
+    // 6) Write your desired mode to OPR_MODE
+    value = mode;
+    res = HAL_I2C_Mem_Write( &hi2c1,BNO055_ADDR,BNO055_OPR_MODE,I2C_MEMADD_SIZE_8BIT,&value,1,HAL_MAX_DELAY);
+    if (res != HAL_OK) return -1;
+
+    // 7) Wait 1 s for the mode switch to take effect
+    HAL_Delay(1000);
+
+    // 8) Read back 1 byte from SYS_STAT to confirm
+    res = HAL_I2C_Mem_Read(&hi2c1, BNO055_ADDR,BNO055_SYS_STAT,I2C_MEMADD_SIZE_8BIT,&value,1,HAL_MAX_DELAY);
+    if (res != HAL_OK) return -1;
+
+    printf("Status is: 0x%02X\n", value);
+    return 0;
+}
+
+int BNO055_GetCalibrationStatus(uint8_t *sys, uint8_t *gyro, uint8_t *accel, uint8_t *mag)
+{
+    uint8_t calib_byte;
+    if (HAL_I2C_Mem_Read(&hi2c1, BNO055_ADDR, BNO055_CALIB_STAT,
+                         I2C_MEMADD_SIZE_8BIT, &calib_byte, 1, HAL_MAX_DELAY) != HAL_OK)
+    {
+        printf("Error reading calibration status\n");
+        return -1;
+    }
+    HAL_Delay(1000);
+    *sys   = (calib_byte >> 6) & 0x03;  *gyro  = (calib_byte >> 4) & 0x03;
+    *accel = (calib_byte >> 2) & 0x03;  *mag   = (calib_byte      ) & 0x03;
+    return 0;
+}
+
+
+int BNO055_GetEuler(int16_t *heading, int16_t *roll, int16_t *pitch)
+{
+
+}

@@ -21,7 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "gsr.h"
+#include "tmp.h"
+#include "imu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,6 +46,7 @@
 COM_InitTypeDef BspCOMInit;
 ADC_HandleTypeDef hadc1;
 
+I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c3;
 
 UART_HandleTypeDef hlpuart1;
@@ -59,6 +62,7 @@ static void MX_GPIO_Init(void);
 static void MX_I2C3_Init(void);
 static void MX_LPUART1_UART_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -69,96 +73,15 @@ static void MX_ADC1_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
-//TEMP VALUES
-#define TMP117_ADDR      (0x48 << 1)   // Change if your sensor address is different
-#define TMP117_TEMP_REG  0x00          // Temperature register address
-//GSR VALUES
-#define ADC_RESOLUTION 4095.0f   // 12-bit ADC: 2^12 - 1 = 4095
-#define ADC_VREF       5.0f      // Reference voltage in volts
-#define V_IN             5.0f        // Supply voltage (5V)
-#define R_FIXED          8600.0f    // Fixed resistor in ohms (10 kΩ)
-#define SERIAL_CALIBRATION   3140
+
 
 /**
   * @brief  Reads the temperature from the TMP117 sensor.
   * @retval Temperature in °C as a float, or a specific error value if read fails.
   */
-float read_temperature(void)
-{
-    uint8_t tempData[2];
 
-    // Read 2 bytes from the temperature register
-    if (HAL_I2C_Mem_Read(&hi2c3, TMP117_ADDR, TMP117_TEMP_REG, I2C_MEMADD_SIZE_8BIT, tempData, 2, HAL_MAX_DELAY) != HAL_OK)
-    {
-        printf("TMP117 read error!\n");
-        return -999.0f;  // Return a clearly erroneous value to indicate a failure
-    }
 
-    // Combine the two bytes into a 16-bit value (big-endian format)
-    int16_t rawTemp = (int16_t)((tempData[0] << 8) | tempData[1]);
 
-    // Convert the raw value to temperature in Celsius.
-    // Each LSB represents 0.0078125°C
-    float temperature = rawTemp * 0.0078125f;
-
-    return temperature;
-}
-
-uint32_t read_adc_value(void)
-{
-    uint32_t adcValue = 0;
-
-    // Start ADC conversion
-    HAL_ADC_Start(&hadc1);
-
-    // Wait for conversion completion (timeout in milliseconds)
-    if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
-    {
-        // Retrieve ADC conversion result
-        adcValue = HAL_ADC_GetValue(&hadc1);
-    }
-    else
-    {
-        // Optional: handle error
-        printf("ADC conversion error!\r\n");
-    }
-
-    // Stop ADC (optional for single conversion mode)
-    HAL_ADC_Stop(&hadc1);
-
-    return adcValue;
-}
-
-float read_adc_voltage(void)
-{
-    uint32_t adc_raw = read_adc_value();
-    // Convert raw ADC value to voltage:
-    // voltage = (adc_raw / ADC_RESOLUTION) * ADC_VREF
-    float voltage = ((float)adc_raw / ADC_RESOLUTION) * ADC_VREF;
-    return voltage;
-}
-
-uint32_t read_adc_value_avg(uint8_t numSamples)
-{
-    uint32_t sum = 0;
-    for (uint8_t i = 0; i < numSamples; i++)
-    {
-        sum += read_adc_value();
-        HAL_Delay(5);
-    }
-    return (sum / numSamples);
-}
-
-float calculate_human_resistance(uint32_t adcReading, uint32_t calibrationReading)
-{
-    if (calibrationReading <= adcReading) {
-        // Avoid division by zero or negative values
-        return 0.0f;
-    }
-    float numerator = (4096.0f + 2.0f * (float)adcReading) * 10000.0f;
-    float resistance = numerator / ((float)calibrationReading - (float)adcReading);
-    return resistance;
-}
 
 /* USER CODE END 0 */
 
@@ -197,6 +120,7 @@ int main(void)
   MX_I2C3_Init();
   MX_LPUART1_UART_Init();
   MX_ADC1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -221,7 +145,15 @@ int main(void)
   {
     Error_Handler();
   }
-
+  if (BNO055_Init() != 0) {
+      printf("BNO055 init failed!\r\n");
+      Error_Handler();
+  }
+  // This will block until sys, gyro, accel and mag are all fully calibrated (==3)
+  if (BNO055_CalibrateIMU() != 0) {
+      printf("BNO055 calibration failed!\r\n");
+      Error_Handler();
+  }
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -259,8 +191,25 @@ int main(void)
 	    {
 	        printf("Human Resistance: %.1f ohms\r\n", humanResistance);
 	    }
+	    int16_t hdg, roll, pitch;
+	    if (BNO055_GetEuler(&hdg, &roll, &pitch) == 0) {
+	        printf("IMU → H:%.2f° R:%.2f° P:%.2f°\r\n",
+	               hdg/16.0f, roll/16.0f, pitch/16.0f);
+	    } else {
+	        printf("IMU read error\r\n");
+	    }
+        int16_t ax, ay, az;
+        if (BNO055_GetAccel(&ax, &ay, &az) == 0) {
+            // raw accel LSB = 1 mg, so divide by 1000.0f to get g
+            float gx = ax / 1000.0f;
+            float gy = ay / 1000.0f;
+            float gz = az / 1000.0f;
+            printf("Accel: X=%.3fg Y=%.3fg Z=%.3fg\r\n", gx, gy, gz);
+        } else {
+            printf("Accel read error\r\n");
+        }
 
-	    HAL_Delay(1000); // Delay 1 second between readings
+	    HAL_Delay(250); // Delay 1 second between readings
   }
   /* USER CODE END 3 */
 }
@@ -393,6 +342,54 @@ static void MX_ADC1_Init(void)
 }
 
 /**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.Timing = 0x00B07CB4;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Analogue filter
+  */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Digital filter
+  */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
+}
+
+/**
   * @brief I2C3 Initialization Function
   * @param None
   * @retval None
@@ -502,8 +499,8 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pins : USB_DM_Pin USB_DP_Pin */
   GPIO_InitStruct.Pin = USB_DM_Pin|USB_DP_Pin;

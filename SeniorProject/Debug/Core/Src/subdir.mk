@@ -5,28 +5,37 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/gsr.c \
+../Core/Src/imu.c \
 ../Core/Src/main.c \
 ../Core/Src/stm32wbxx_hal_msp.c \
 ../Core/Src/stm32wbxx_it.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
-../Core/Src/system_stm32wbxx.c 
+../Core/Src/system_stm32wbxx.c \
+../Core/Src/tmp.c 
 
 OBJS += \
+./Core/Src/gsr.o \
+./Core/Src/imu.o \
 ./Core/Src/main.o \
 ./Core/Src/stm32wbxx_hal_msp.o \
 ./Core/Src/stm32wbxx_it.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
-./Core/Src/system_stm32wbxx.o 
+./Core/Src/system_stm32wbxx.o \
+./Core/Src/tmp.o 
 
 C_DEPS += \
+./Core/Src/gsr.d \
+./Core/Src/imu.d \
 ./Core/Src/main.d \
 ./Core/Src/stm32wbxx_hal_msp.d \
 ./Core/Src/stm32wbxx_it.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
-./Core/Src/system_stm32wbxx.d 
+./Core/Src/system_stm32wbxx.d \
+./Core/Src/tmp.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -36,7 +45,7 @@ Core/Src/%.o Core/Src/%.su Core/Src/%.cyclo: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32wbxx_hal_msp.cyclo ./Core/Src/stm32wbxx_hal_msp.d ./Core/Src/stm32wbxx_hal_msp.o ./Core/Src/stm32wbxx_hal_msp.su ./Core/Src/stm32wbxx_it.cyclo ./Core/Src/stm32wbxx_it.d ./Core/Src/stm32wbxx_it.o ./Core/Src/stm32wbxx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32wbxx.cyclo ./Core/Src/system_stm32wbxx.d ./Core/Src/system_stm32wbxx.o ./Core/Src/system_stm32wbxx.su
+	-$(RM) ./Core/Src/gsr.cyclo ./Core/Src/gsr.d ./Core/Src/gsr.o ./Core/Src/gsr.su ./Core/Src/imu.cyclo ./Core/Src/imu.d ./Core/Src/imu.o ./Core/Src/imu.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32wbxx_hal_msp.cyclo ./Core/Src/stm32wbxx_hal_msp.d ./Core/Src/stm32wbxx_hal_msp.o ./Core/Src/stm32wbxx_hal_msp.su ./Core/Src/stm32wbxx_it.cyclo ./Core/Src/stm32wbxx_it.d ./Core/Src/stm32wbxx_it.o ./Core/Src/stm32wbxx_it.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32wbxx.cyclo ./Core/Src/system_stm32wbxx.d ./Core/Src/system_stm32wbxx.o ./Core/Src/system_stm32wbxx.su ./Core/Src/tmp.cyclo ./Core/Src/tmp.d ./Core/Src/tmp.o ./Core/Src/tmp.su
 
 .PHONY: clean-Core-2f-Src
 

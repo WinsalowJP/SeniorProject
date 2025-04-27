@@ -1,0 +1,4 @@
+../Core/Src/gsr.c:11:10:read_adc_value	2
+../Core/Src/gsr.c:36:7:read_adc_voltage	1
+../Core/Src/gsr.c:45:10:read_adc_value_avg	2
+../Core/Src/gsr.c:56:7:calculate_human_resistance	2
