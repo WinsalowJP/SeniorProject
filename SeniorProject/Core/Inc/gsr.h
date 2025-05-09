@@ -19,8 +19,9 @@
 #define SERIAL_CALIBRATION   3140
 
 uint32_t read_adc_value(void);
-float read_adc_voltage(void);
-uint32_t read_adc_value_avg(uint8_t numSamples);
+uint32_t read_adc1_channel(uint32_t channel);
+float read_adc_voltage(uint32_t channel);
+uint32_t read_adc_value_avg(uint32_t channel,uint8_t numSamples);
 float calculate_human_resistance(uint32_t adcReading, uint32_t calibrationReading);
 
 #endif /* GSR_H_ */

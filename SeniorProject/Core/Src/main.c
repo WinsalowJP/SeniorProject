@@ -69,18 +69,29 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
-
-
-/**
-  * @brief  Reads the temperature from the TMP117 sensor.
-  * @retval Temperature in °C as a float, or a specific error value if read fails.
-  */
-
-
+/* Helper to read any single channel on ADC1 */
+//	uint32_t read_adc1_channel(uint32_t channel) {
+//	  ADC_ChannelConfTypeDef sConfig = {0};
+//	  sConfig.Channel      = channel;
+//	  sConfig.Rank         = ADC_REGULAR_RANK_1;
+//	  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+//	  sConfig.SingleDiff   = ADC_SINGLE_ENDED;
+//	  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+//	  sConfig.Offset       = 0;
+//
+//	  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) {
+//		Error_Handler();
+//	  }
+//
+//	  HAL_ADC_Start(&hadc1);
+//	  if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
+//		uint32_t val = HAL_ADC_GetValue(&hadc1);
+//		HAL_ADC_Stop(&hadc1);
+//		return val;
+//	  }
+//	  HAL_ADC_Stop(&hadc1);
+//	  return 0;  // conversion failed
+//	}
 
 
 /* USER CODE END 0 */
@@ -145,71 +156,76 @@ int main(void)
   {
     Error_Handler();
   }
-  if (BNO055_Init() != 0) {
-      printf("BNO055 init failed!\r\n");
-      Error_Handler();
-  }
-  // This will block until sys, gyro, accel and mag are all fully calibrated (==3)
-  if (BNO055_CalibrateIMU() != 0) {
-      printf("BNO055 calibration failed!\r\n");
-      Error_Handler();
-  }
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  printf("Time_ms,TempC,TempF,ADC,Voltage_V,Res_Ohm,Heading_deg,Roll_deg,Pitch_deg,AccX_g,AccY_g,AccZ_g,PPG\r\n");
+
+	    uint32_t start = HAL_GetTick();
+	    while ((HAL_GetTick() - start) < 30000)
+	    {
+	      uint32_t ts = HAL_GetTick();
+
+	      // temperature
+	      float tempC = read_temperature();
+	      float tempF = (tempC > -100.0f)
+	                    ? (tempC * 9.0f / 5.0f + 32.0f)
+	                    : -9999.0f;
+
+	      // GSR
+//		  uint32_t adcRaw5   = read_adc1_channel(ADC_CHANNEL_5);
+//		  float    volt5     = ((float)adcRaw5 / ADC_RESOLUTION) * ADC_VREF;
+	      uint32_t adcRaw = read_adc_value_avg(ADC_CHANNEL_5,5);
+	      float adcVoltage     = ((float)adcRaw / ADC_RESOLUTION) * ADC_VREF;
+	      float humanResistance = calculate_human_resistance(adcRaw, SERIAL_CALIBRATION);
+
+	      // IMU Euler angles
+	      int16_t hdg, roll, pitch;
+	      float h=0, r=0, p=0;
+	      if (BNO055_GetEuler(&hdg, &roll, &pitch) == 0)
+	      {
+	        h = hdg / 16.0f;
+	        r = roll / 16.0f;
+	        p = pitch / 16.0f;
+	      }
+
+	      // IMU acceleration
+	      int16_t ax, ay, az;
+	      float gx=0, gy=0, gz=0;
+	      if (BNO055_GetAccel(&ax, &ay, &az) == 0)
+	      {
+	        gx = ax / 1000.0f;
+	        gy = ay / 1000.0f;
+	        gz = az / 1000.0f;
+	      }
+
+
+	      //PPG
+	      uint32_t adcRaw3   = read_adc1_channel(ADC_CHANNEL_3);
+		  float    volt3     = ((float)adcRaw3 / ADC_RESOLUTION) * ADC_VREF;
+
+	      // one CSV row
+	      printf("%lu,%.3f,%.3f,%lu,%.3f,%.3f,%.2f,%.2f,%.2f,%.3f,%.3f,%.3f,%.4f\r\n",
+	             ts,
+	             tempC,
+	             tempF,
+	             adcRaw,
+	             adcVoltage,
+	             humanResistance,
+	             h, r, p,
+	             gx, gy, gz,volt3);
+
+	      HAL_Delay(10);
+	    }
+
+	    printf("=== 10 s log complete ===\r\n");
+
     /* USER CODE END WHILE */
 
+
     /* USER CODE BEGIN 3 */
-	    float tempC = read_temperature();
-	    if (tempC > -100.0f)  // simple check for valid reading
-	    {
-	       float tempF = tempC * 9.0f / 5.0f + 32.0f;
-	       printf("\033[2J\033[H");
-	       printf("Temperature: %.3f °C / %.3f °F\r\n", tempC, tempF);
-	    }
-
-	    // Read and average ADC value for GSR sensor (using 10 samples)
-	    uint32_t adcRaw = read_adc_value_avg(10);
-	    float adcVoltage = ((float)adcRaw / ADC_RESOLUTION) * ADC_VREF;
-
-	    float humanResistance = calculate_human_resistance(adcRaw, SERIAL_CALIBRATION);
-
-	    // Print the ADC value, voltage, and calculated human resistance with appropriate units
-	    printf("ADC Value: %lu\r\n", adcRaw);
-	    printf("ADC Voltage: %.3f V\r\n", adcVoltage);
-
-	    if (humanResistance >= 1000000.0f)
-	    {
-	        printf("Human Resistance: %.3f MΩ\r\n", humanResistance / 1000000.0f);
-	    }
-	    else if (humanResistance >= 1000.0f)
-	    {
-	        printf("Human Resistance: %.1f kΩ\r\n", humanResistance / 1000.0f);
-	    }
-	    else
-	    {
-	        printf("Human Resistance: %.1f ohms\r\n", humanResistance);
-	    }
-	    int16_t hdg, roll, pitch;
-	    if (BNO055_GetEuler(&hdg, &roll, &pitch) == 0) {
-	        printf("IMU → H:%.2f° R:%.2f° P:%.2f°\r\n",
-	               hdg/16.0f, roll/16.0f, pitch/16.0f);
-	    } else {
-	        printf("IMU read error\r\n");
-	    }
-        int16_t ax, ay, az;
-        if (BNO055_GetAccel(&ax, &ay, &az) == 0) {
-            // raw accel LSB = 1 mg, so divide by 1000.0f to get g
-            float gx = ax / 1000.0f;
-            float gy = ay / 1000.0f;
-            float gz = az / 1000.0f;
-            printf("Accel: X=%.3fg Y=%.3fg Z=%.3fg\r\n", gx, gy, gz);
-        } else {
-            printf("Accel read error\r\n");
-        }
-
-	    HAL_Delay(250); // Delay 1 second between readings
   }
   /* USER CODE END 3 */
 }
@@ -323,8 +339,7 @@ static void MX_ADC1_Init(void)
     Error_Handler();
   }
 
-  /** Configure Regular Channel
-  */
+  /** Configure Regular Channel*/
   sConfig.Channel = ADC_CHANNEL_5;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
@@ -511,6 +526,11 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /* PA3 for ADC1_IN3 */
+  GPIO_InitStruct.Pin  = GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE END MX_GPIO_Init_2 */
 }
