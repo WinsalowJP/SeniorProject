@@ -2,7 +2,7 @@
  * tmp.c
  *
  *  Created on: Apr 26, 2025
- *      Author: School
+ *      Author: James Pan
  */
 
 #include "tmp.h"

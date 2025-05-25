@@ -69,6 +69,8 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+
 /* Helper to read any single channel on ADC1 */
 //	uint32_t read_adc1_channel(uint32_t channel) {
 //	  ADC_ChannelConfTypeDef sConfig = {0};
@@ -161,10 +163,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+//---------------------------------- IMU CALIBRATION (uncomment below to turn on calibration for IMU)--------------------
+
+
+//	  if (BNO055_Init() != 0) {
+//	    printf("IMU init failed!\r\n");
+//	    Error_Handler();
+//	  }
+//	  // 2) Calibrate: this will print status each second until all = 3
+//	  if (BNO055_CalibrateIMU() != 0) {
+//	    printf("IMU calibration failed!\r\n");
+//	    Error_Handler();
+//	  }
+
+//-----------------------------------------------------------------------------------------------------------------------
+
 	  printf("Time_ms,TempC,TempF,ADC,Voltage_V,Res_Ohm,Heading_deg,Roll_deg,Pitch_deg,AccX_g,AccY_g,AccZ_g,PPG\r\n");
 
 	    uint32_t start = HAL_GetTick();
-	    while ((HAL_GetTick() - start) < 30000)
+	    while ((HAL_GetTick() - start) < 30000) //check if 30s has passed
 	    {
 	      uint32_t ts = HAL_GetTick();
 
@@ -175,31 +193,35 @@ int main(void)
 	                    : -9999.0f;
 
 	      // GSR
-//		  uint32_t adcRaw5   = read_adc1_channel(ADC_CHANNEL_5);
-//		  float    volt5     = ((float)adcRaw5 / ADC_RESOLUTION) * ADC_VREF;
+
+//		  uint32_t adcRaw5   = read_adc1_channel(ADC_CHANNEL_5); //raw adc values for debugging
+//		  float    volt5     = ((float)adcRaw5 / ADC_RESOLUTION) * ADC_VREF;	//raw adc values for debugging
+
+
 	      uint32_t adcRaw = read_adc_value_avg(ADC_CHANNEL_5,5);
 	      float adcVoltage     = ((float)adcRaw / ADC_RESOLUTION) * ADC_VREF;
 	      float humanResistance = calculate_human_resistance(adcRaw, SERIAL_CALIBRATION);
 
-	      // IMU Euler angles
-	      int16_t hdg, roll, pitch;
-	      float h=0, r=0, p=0;
-	      if (BNO055_GetEuler(&hdg, &roll, &pitch) == 0)
-	      {
-	        h = hdg / 16.0f;
-	        r = roll / 16.0f;
-	        p = pitch / 16.0f;
-	      }
+	      // IMU Euler angles (uncomment and add to the csv row using the same notation)
 
-	      // IMU acceleration
-	      int16_t ax, ay, az;
-	      float gx=0, gy=0, gz=0;
-	      if (BNO055_GetAccel(&ax, &ay, &az) == 0)
-	      {
-	        gx = ax / 1000.0f;
-	        gy = ay / 1000.0f;
-	        gz = az / 1000.0f;
-	      }
+//	      int16_t hdg, roll, pitch;
+//	      float h=0, r=0, p=0;
+//	      if (BNO055_GetEuler(&hdg, &roll, &pitch) == 0)
+//	      {
+//	        h = hdg / 16.0f;
+//	        r = roll / 16.0f;
+//	        p = pitch / 16.0f;
+//	      }
+//
+//	      // IMU acceleration
+//	      int16_t ax, ay, az;
+//	      float gx=0, gy=0, gz=0;
+//	      if (BNO055_GetAccel(&ax, &ay, &az) == 0)
+//	      {
+//	        gx = ax / 1000.0f;
+//	        gy = ay / 1000.0f;
+//	        gz = az / 1000.0f;
+//	      }
 
 
 	      //PPG
@@ -207,20 +229,18 @@ int main(void)
 		  float    volt3     = ((float)adcRaw3 / ADC_RESOLUTION) * ADC_VREF;
 
 	      // one CSV row
-	      printf("%lu,%.3f,%.3f,%lu,%.3f,%.3f,%.2f,%.2f,%.2f,%.3f,%.3f,%.3f,%.4f\r\n",
+	      printf("%lu,%.3f,%.3f,%lu,%.3f,%.3f,%.3f\r\n",
 	             ts,
 	             tempC,
 	             tempF,
 	             adcRaw,
 	             adcVoltage,
-	             humanResistance,
-	             h, r, p,
-	             gx, gy, gz,volt3);
+	             humanResistance,volt3);
 
 	      HAL_Delay(10);
 	    }
 
-	    printf("=== 10 s log complete ===\r\n");
+	    printf("=== 30 s log complete ===\r\n");
 
     /* USER CODE END WHILE */
 

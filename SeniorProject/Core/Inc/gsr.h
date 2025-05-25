@@ -2,7 +2,7 @@
  * gsr.h
  *
  *  Created on: Apr 26, 2025
- *      Author: School
+ *      Author: James Pan
  */
 
 #ifndef GSR_H_
